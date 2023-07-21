@@ -8,7 +8,6 @@ function getAllPolicyholders(_req, res) {
 
 function createPolicyholder(req, res) {
   const validation = validationResult(req);
-
   if (!validation.isEmpty()) {
     return res.status(400).json(validation.array());
   }
@@ -35,13 +34,8 @@ function getPolicyholderById(req, res) {
   const newPolicyholder = matchedData(req);
   const policyholders = findPolicyholderById(newPolicyholder.policyholderId);
 
-  if (!policyholders) {
-    return res.status(404).json();
-  }
-
-  return res.json(policyholders);
+  !policyholders ? res.status(404).json() : res.json(policyholders)
 }
-
 
 module.exports = {
   getAllPolicyholders,
